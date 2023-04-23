@@ -2,53 +2,64 @@ package com.example.demo.frontend;
 
 import com.example.demo.entity.Konsekrowany;
 import com.example.demo.repository.Repo;
-import com.fasterxml.jackson.core.format.DataFormatDetector;
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.grid.dataview.GridListDataView;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Role;
 
-
-import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
-@Route("ListaKonsekrowanych")
+
+@Route("Znajdz konsekrowanego")
 @RolesAllowed("User")
-public class ListaKonsekrowanych extends VerticalLayout {
+public class ListaKonsekrowanych extends Div {
+
 
     @Autowired
     public ListaKonsekrowanych(Repo repository) {
 
-        com.vaadin.flow.component.button.Button findButton = new Button("Wyszukaj ");
-        TextField findField = new TextField("Wyszukaj");
+        List<Konsekrowany> konsekrowanyList = repository.findAll();
+        Grid<Konsekrowany> grid = new Grid<>();
 
+        grid.addColumn(Konsekrowany::getName).setHeader("First name");
+        grid.addColumn(Konsekrowany::getLastname).setHeader("Last name");
+        grid.addColumn(Konsekrowany::getOasis).setHeader("Oasis");
+        grid.addColumn(Konsekrowany::getBirthDay).setHeader("BirthDay");
 
-        List<Konsekrowany> konsekrowanyList = repository.findAll(); // baza danych
-
-
-        Grid<Konsekrowany> grid = new Grid<>(Konsekrowany.class);
         grid.setItems(konsekrowanyList);
+        GridListDataView<Konsekrowany> dataView = grid.setItems(konsekrowanyList);
 
-        findButton.addClickListener(buttonClickEvent -> {
+        var findField = new TextField();
+        findField.setPlaceholder("Search");
+        findField.setPrefixComponent(new Icon(VaadinIcon.SEARCH));
+        findField.setValueChangeMode(ValueChangeMode.EAGER);
+        findField.addValueChangeListener(e -> dataView
+                .refreshAll());
 
-            List<Konsekrowany> collect = repository.findAll()
-                    .stream()
-                    .filter(konsekrowany -> konsekrowany.getName().equals(findField.getValue()) || konsekrowany.getLastname().equals(findField.getValue())
-                            || konsekrowany.getOasis().equals(findField.getValue())
-                            || konsekrowany.getBirthDay().toString().equals((findField.getValue())))
-                    .collect(Collectors.toList());
-            grid.setItems(collect);
+        dataView.addFilter(konsekrowany -> {
+            String searchTerm = findField.getValue().trim();
+
+            boolean matchesFullName = matchesTerm(konsekrowany.getName(),
+                    searchTerm);
+            boolean matchesEmail = matchesTerm(konsekrowany.getLastname(), searchTerm);
+            boolean matchesProfession = matchesTerm(konsekrowany.getOasis(), searchTerm);
+            boolean matchesDate = matchesTerm(konsekrowany.getBirthDay().toString(), searchTerm);
+
+            return matchesFullName || matchesEmail || matchesProfession || matchesDate;
         });
 
 
+        add(grid, findField);
 
-        add(grid,findButton,findField);
+    }
 
-
+    private boolean matchesTerm(String value, String searchTerm) {
+        return value.toLowerCase().contains(searchTerm.toLowerCase());
     }
 }
