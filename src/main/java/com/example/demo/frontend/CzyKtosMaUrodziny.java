@@ -7,6 +7,8 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
@@ -28,6 +30,15 @@ public class CzyKtosMaUrodziny extends VerticalLayout {
 
     @Autowired
     public CzyKtosMaUrodziny(Repo repo) {
+
+
+        var homeMenu = new Button("Menu Główne");
+        homeMenu.setIcon(new Icon(VaadinIcon.HOME));
+
+        homeMenu.addClickListener(buttonClickEvent -> {
+            homeMenu.getUI().ifPresent(ui -> ui.navigate(""));
+
+        });
         Label label = new Label("Wybierz date");
         DatePicker picker = new DatePicker();
         Button findDate = new Button("Wyszukaj");
@@ -56,7 +67,7 @@ public class CzyKtosMaUrodziny extends VerticalLayout {
         });
 
 
-        add(label, picker, findDate,konsekrowanyGrid);
+        add(label, picker, findDate,konsekrowanyGrid,homeMenu);
     }
 
 

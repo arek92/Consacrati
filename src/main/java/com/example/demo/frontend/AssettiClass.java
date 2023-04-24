@@ -5,10 +5,13 @@ import com.example.demo.repository.Repo;
 import com.vaadin.flow.component.Focusable;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.Shortcuts;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
@@ -29,6 +32,15 @@ public class AssettiClass extends Div {
 
     @Autowired
     public AssettiClass(Repo repo) {
+
+        var homeMenu = new Button("Menu Główne");
+        homeMenu.setIcon(new Icon(VaadinIcon.HOME));
+
+        homeMenu.addClickListener(buttonClickEvent -> {
+            homeMenu.getUI().ifPresent(ui -> ui.navigate(""));
+
+        });
+
 
 
         List<Konsekrowany> konsekrowanyList = repo.findAll();
@@ -109,7 +121,7 @@ public class AssettiClass extends Div {
         }, Key.ESCAPE).listenOn(grid);
 
 
-        add(grid);
+        add(grid,homeMenu);
 
     }
 

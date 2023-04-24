@@ -2,6 +2,7 @@ package com.example.demo.frontend;
 
 import com.example.demo.entity.Konsekrowany;
 import com.example.demo.repository.Repo;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.dataview.GridListDataView;
 import com.vaadin.flow.component.html.Div;
@@ -23,6 +24,15 @@ public class ListaKonsekrowanych extends Div {
 
     @Autowired
     public ListaKonsekrowanych(Repo repository) {
+
+
+        var homeMenu = new Button("Menu Główne");
+        homeMenu.setIcon(new Icon(VaadinIcon.HOME));
+
+        homeMenu.addClickListener(buttonClickEvent -> {
+            homeMenu.getUI().ifPresent(ui -> ui.navigate(""));
+
+        });
 
         List<Konsekrowany> konsekrowanyList = repository.findAll();
         Grid<Konsekrowany> grid = new Grid<>();
@@ -55,7 +65,7 @@ public class ListaKonsekrowanych extends Div {
         });
 
 
-        add(grid, findField);
+        add(grid, findField,homeMenu);
 
     }
 
