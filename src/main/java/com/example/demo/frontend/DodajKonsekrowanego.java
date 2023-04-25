@@ -1,5 +1,6 @@
 package com.example.demo.frontend;
 
+import com.example.demo.ImageClassResourcess;
 import com.example.demo.entity.Konsekrowany;
 import com.example.demo.repository.Repo;
 import com.vaadin.flow.component.button.Button;
@@ -29,6 +30,8 @@ public class DodajKonsekrowanego extends VerticalLayout {
             homeMenu.getUI().ifPresent(ui -> ui.navigate(""));
 
         });
+
+        var ressources = new ImageClassResourcess();
         TextField textFieldImie = new TextField("imie");
         TextField textFieldNazwisko = new TextField("Nazwisko");
         TextField textFielOaza = new TextField("Oaza");
@@ -58,7 +61,7 @@ public class DodajKonsekrowanego extends VerticalLayout {
 
 
 
-        add(textFieldImie,textFieldNazwisko,textFielOaza,picker,buttonDodaj,homeMenu);
+        add(textFieldImie,textFieldNazwisko,textFielOaza,picker,buttonDodaj,homeMenu,ressources);
 
 
 
