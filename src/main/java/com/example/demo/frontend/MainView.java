@@ -1,9 +1,8 @@
 package com.example.demo.frontend;
 
-import com.example.demo.ImageClassResourcess;
-import com.vaadin.flow.component.button.Button;
+import com.example.demo.pictureResources.Proroctwo;
+import com.example.demo.pictureResources.RisenImageClass;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -28,7 +27,9 @@ public class MainView extends Div {
          Tab urodziny = new Tab(VaadinIcon.CALENDAR_CLOCK.create(), new Span("Urodziny"));
          Tab aktualizujInformacje = new Tab(VaadinIcon.EDIT.create(), new Span("Zaktualizuj"));
 
-         var ressources = new ImageClassResourcess();
+         var ressources = new RisenImageClass();
+
+
 
          // Set the icon on top
          for (Tab tab : new Tab[] { dodajKonsekrowanego, znajdzInformacje, urodziny,aktualizujInformacje}) {

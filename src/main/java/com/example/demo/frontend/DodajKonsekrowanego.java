@@ -1,6 +1,6 @@
 package com.example.demo.frontend;
 
-import com.example.demo.ImageClassResourcess;
+import com.example.demo.pictureResources.ImageClassResourcess;
 import com.example.demo.entity.Konsekrowany;
 import com.example.demo.repository.Repo;
 import com.vaadin.flow.component.button.Button;

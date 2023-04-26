@@ -1,13 +1,11 @@
 package com.example.demo.frontend;
 
-import com.example.demo.ImageClassResourcess;
 import com.example.demo.entity.Konsekrowany;
 import com.example.demo.repository.Repo;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.dataview.GridListDataView;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.textfield.TextField;
@@ -37,9 +35,8 @@ public class ListaKonsekrowanych extends Div {
 
         });
 
-        var resourcess = new ImageClassResourcess();
+        //var resourcess = new ImageClassResourcess();
 
-       // var icon = new Image("Zrzut ekranu 2023-04-26 005608.png","Brak obrazka");
 
 
         List<Konsekrowany> konsekrowanyList = repository.findAll();
@@ -73,7 +70,7 @@ public class ListaKonsekrowanych extends Div {
         });
 
 
-        add(grid, findField,homeMenu,resourcess);
+        add(grid, findField,homeMenu);
 
     }
 
