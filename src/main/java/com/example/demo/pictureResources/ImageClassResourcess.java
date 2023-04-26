@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.pictureResources;
 
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
