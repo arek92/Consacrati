@@ -12,10 +12,11 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Route("Dodaj_Konsekrowanego")
-@PermitAll
+@RolesAllowed("User")
 public class DodajKonsekrowanego extends VerticalLayout {
 
     @Autowired
@@ -53,11 +54,6 @@ public class DodajKonsekrowanego extends VerticalLayout {
 
         });
 
-
-//
-//        znajdz.addClickListener(buttonClickEvent -> {
-//            znajdz.getUI().ifPresent(ui -> ui.navigate("Znajdz konsekrowanego"));
-//        });
 
 
 
