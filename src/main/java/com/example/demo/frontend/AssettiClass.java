@@ -17,6 +17,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -24,7 +25,7 @@ import java.util.Optional;
 
 
 @Route("zaktualizuj dane")
-@PermitAll
+@RolesAllowed("PASTORE")
 public class AssettiClass extends Div {
 
     private Optional<Grid.Column<Konsekrowany>> currentColumn = Optional.empty();

@@ -35,7 +35,7 @@ public class ListaKonsekrowanych extends Div {
 
         });
 
-        //var resourcess = new ImageClassResourcess();
+
 
 
 
