@@ -2,7 +2,7 @@ package com.example.demo.frontend;
 
 import com.example.demo.entity.Konsekrowany;
 import com.example.demo.repository.Repo;
-import com.vaadin.flow.component.Component;
+import com.example.demo.service.Service;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.grid.Grid;
@@ -12,25 +12,30 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
-import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Route("Czy ktos ma urodziny")
 @RolesAllowed("User")
 public class CzyKtosMaUrodziny extends VerticalLayout {
 
+
+    @Autowired
     private Repo repo;
 
 
     @Autowired
-    public CzyKtosMaUrodziny(Repo repo) {
+    Service service = new Service();
+
+
+
+
+
+
+    public CzyKtosMaUrodziny() {
 
 
         var homeMenu = new Button("Menu Główne");
@@ -44,6 +49,7 @@ public class CzyKtosMaUrodziny extends VerticalLayout {
         DatePicker picker = new DatePicker();
         Button findDate = new Button("Wyszukaj");
         Grid<Konsekrowany> konsekrowanyGrid = new Grid<>(Konsekrowany.class);
+        Button wyslijEmail = new Button("Wyslij Email z zyczeniami");
 
 
         findDate.addClickListener(buttonClickEvent -> {
@@ -67,8 +73,28 @@ public class CzyKtosMaUrodziny extends VerticalLayout {
 
         });
 
+        wyslijEmail.addClickListener(buttonClickEvent -> {
+            service.sendSimpleEmail("arek<kera0604@o2.pl>","test","Tanti Auguri Arek");
+            Notification notification = new Notification("Pomyslnie wyslano maila",5000);
+            notification.open();
 
-        add(label, picker, findDate,konsekrowanyGrid,homeMenu);
+        });
+
+
+
+//            SimpleMailMessage message = new SimpleMailMessage();
+//            message.setFrom("from@example.com");
+//            message.setTo("arkadiuszgalus85@gmail.com");
+//            message.setSubject("Test email");
+//            message.setText("Tanti Auguri Arkadiusz !!.");
+//
+//            sender.send(message);
+//
+//
+//        });
+
+
+        add(label, picker, findDate,konsekrowanyGrid,homeMenu,wyslijEmail);
     }
 
 
