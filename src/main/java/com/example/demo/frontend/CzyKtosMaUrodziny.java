@@ -2,7 +2,7 @@ package com.example.demo.frontend;
 
 import com.example.demo.entity.Konsekrowany;
 import com.example.demo.repository.Repo;
-import com.example.demo.service.Service;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.grid.Grid;
@@ -23,19 +23,12 @@ import java.util.List;
 public class CzyKtosMaUrodziny extends VerticalLayout {
 
 
+    //private Repo repo;
+
+
+
     @Autowired
-    private Repo repo;
-
-
-    @Autowired
-    Service service = new Service();
-
-
-
-
-
-
-    public CzyKtosMaUrodziny() {
+    public CzyKtosMaUrodziny(Repo repo) {
 
 
         var homeMenu = new Button("Menu Główne");
@@ -74,24 +67,14 @@ public class CzyKtosMaUrodziny extends VerticalLayout {
         });
 
         wyslijEmail.addClickListener(buttonClickEvent -> {
-            service.sendSimpleEmail("arek<kera0604@o2.pl>","test","Tanti Auguri Arek");
-            Notification notification = new Notification("Pomyslnie wyslano maila",5000);
-            notification.open();
+            UI.getCurrent().navigate("/Window Send Email");
+//            service.sendSimpleEmail("arek<kera0604@o2.pl>","test","Tanti Auguri Arek");
+//            Notification notification = new Notification("Pomyslnie wyslano maila",5000);
+//            notification.open();
 
         });
 
 
-
-//            SimpleMailMessage message = new SimpleMailMessage();
-//            message.setFrom("from@example.com");
-//            message.setTo("arkadiuszgalus85@gmail.com");
-//            message.setSubject("Test email");
-//            message.setText("Tanti Auguri Arkadiusz !!.");
-//
-//            sender.send(message);
-//
-//
-//        });
 
 
         add(label, picker, findDate,konsekrowanyGrid,homeMenu,wyslijEmail);

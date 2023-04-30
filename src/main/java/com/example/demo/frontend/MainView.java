@@ -49,7 +49,7 @@ public class MainView extends Div {
         Instant startTimeRight = startTime.toInstant();
         Duration elapsedDuration = Duration.between(startTimeRight, Instant.now());
         long elapsedSeconds = elapsedDuration.getSeconds();
-        long sessionDurationMinutes = 1;
+        long sessionDurationMinutes = 20;
        // long sessionDurationSeconds = session.getSession().getMaxInactiveInterval();
         long sessionDurationSeconds = sessionDurationMinutes * 60;
         long remainingSeconds = sessionDurationSeconds - elapsedSeconds;
