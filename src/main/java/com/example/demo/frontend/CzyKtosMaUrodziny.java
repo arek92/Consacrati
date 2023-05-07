@@ -12,7 +12,6 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
-import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -69,9 +68,6 @@ public class CzyKtosMaUrodziny extends VerticalLayout {
 
         wyslijEmail.addClickListener(buttonClickEvent -> {
             UI.getCurrent().navigate("/Window Send Email");
-//            service.sendSimpleEmail("arek<kera0604@o2.pl>","test","Tanti Auguri Arek");
-//            Notification notification = new Notification("Pomyslnie wyslano maila",5000);
-//            notification.open();
 
         });
 
