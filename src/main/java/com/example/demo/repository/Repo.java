@@ -9,7 +9,4 @@ public interface Repo extends JpaRepository<Konsekrowany,Long>  {
 
 
 
-
-
-
 }

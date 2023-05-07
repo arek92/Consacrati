@@ -12,13 +12,14 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
+import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Route("Czy ktos ma urodziny")
+@Route("Someone celebrates his birthday?")
 @RolesAllowed("User")
 public class CzyKtosMaUrodziny extends VerticalLayout {
 
@@ -31,18 +32,18 @@ public class CzyKtosMaUrodziny extends VerticalLayout {
     public CzyKtosMaUrodziny(Repo repo) {
 
 
-        var homeMenu = new Button("Menu Główne");
+        var homeMenu = new Button("Home");
         homeMenu.setIcon(new Icon(VaadinIcon.HOME));
 
         homeMenu.addClickListener(buttonClickEvent -> {
             homeMenu.getUI().ifPresent(ui -> ui.navigate(""));
 
         });
-        Label label = new Label("Wybierz date");
+        Label label = new Label("provide data");
         DatePicker picker = new DatePicker();
-        Button findDate = new Button("Wyszukaj");
+        Button findDate = new Button("search");
         Grid<Konsekrowany> konsekrowanyGrid = new Grid<>(Konsekrowany.class);
-        Button wyslijEmail = new Button("Wyslij Email z zyczeniami");
+        Button wyslijEmail = new Button("send email with best wishes");
 
 
         findDate.addClickListener(buttonClickEvent -> {
@@ -59,7 +60,7 @@ public class CzyKtosMaUrodziny extends VerticalLayout {
                     .filter(kon -> kon.getBirthDay().getDayOfMonth() == day && kon.getBirthDay().getMonthValue() == month).toList();
             konsekrowanyGrid.setItems(collect);
             if (collect.isEmpty()){
-                Notification notification = new Notification("Dzisiaj nikt nie ma urodzin",5000);
+                Notification notification = new Notification("today we dont have to sent email with birthdaywishes",5000);
                 notification.open();
             }
 

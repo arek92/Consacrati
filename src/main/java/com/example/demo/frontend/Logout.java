@@ -8,7 +8,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import jakarta.annotation.security.PermitAll;
 
-@Route("Logout")
+@Route("logout")
 @PageTitle("Logout")
 @PermitAll
 public class Logout extends Composite<VerticalLayout> {
