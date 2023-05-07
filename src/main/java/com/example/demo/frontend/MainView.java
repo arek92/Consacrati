@@ -1,7 +1,6 @@
 package com.example.demo.frontend;
 
 import com.example.demo.pictureResources.RisenImageClass;
-import com.helger.commons.state.EContinue;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
@@ -11,9 +10,7 @@ import com.vaadin.flow.component.tabs.TabVariant;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.VaadinSession;
-import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 
@@ -21,10 +18,6 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Optional;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 
 @Route(value = "")
@@ -34,22 +27,17 @@ public class MainView extends Div {
     public MainView() {
 
 
-        var dodajKonsekrowanego = new Tab(VaadinIcon.USER.create(), new Span("Dodaj"));
-        var znajdzInformacje = new Tab(VaadinIcon.SEARCH.create(), new Span("Szukaj"));
-        var urodziny = new Tab(VaadinIcon.CALENDAR_CLOCK.create(), new Span("Urodziny"));
-        var aktualizujInformacje = new Tab(VaadinIcon.EDIT.create(), new Span("Zaktualizuj"));
-        var buttonLogout = new Tab(VaadinIcon.EXIT.create(), new Span("Wyloguj"));
+        var dodajKonsekrowanego = new Tab(VaadinIcon.USER.create(), new Span("add"));
+        var znajdzInformacje = new Tab(VaadinIcon.SEARCH.create(), new Span("find"));
+        var urodziny = new Tab(VaadinIcon.CALENDAR_CLOCK.create(), new Span("birthday"));
+        var aktualizujInformacje = new Tab(VaadinIcon.EDIT.create(), new Span("update"));
+        var buttonLogout = new Tab(VaadinIcon.EXIT.create(), new Span("logout"));
         var ressources = new RisenImageClass();
 
 
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User currentUser = new User(username, "", new ArrayList<>());
         var tabCurrentUser = new Tab(VaadinIcon.USER.create(), new Span("logged  as " + " " + " " + currentUser.getUsername()));
-
-
-
-//        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        var tabCurrentUser = new Tab(VaadinIcon.USER.create(), new Span("logged  as " + " " + " " + currentUser.getUsername()));
 
 
         VaadinSession session = UI.getCurrent().getInternals().getSession();
@@ -59,7 +47,6 @@ public class MainView extends Div {
         Duration elapsedDuration = Duration.between(startTimeRight, Instant.now());
         long elapsedSeconds = elapsedDuration.getSeconds();
         long sessionDurationMinutes = 20;
-       // long sessionDurationSeconds = session.getSession().getMaxInactiveInterval();
         long sessionDurationSeconds = sessionDurationMinutes * 60;
         long remainingSeconds = sessionDurationSeconds - elapsedSeconds;
 
