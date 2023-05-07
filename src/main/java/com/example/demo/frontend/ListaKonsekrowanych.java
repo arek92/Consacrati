@@ -11,13 +11,14 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
+import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 
-@Route("Znajdz konsekrowanego")
+@Route("find")
 @RolesAllowed("User")
 public class ListaKonsekrowanych extends Div {
 
@@ -27,7 +28,7 @@ public class ListaKonsekrowanych extends Div {
     public ListaKonsekrowanych(Repo repository) {
 
 
-        var homeMenu = new Button("Menu Główne");
+        var homeMenu = new Button("Home");
         homeMenu.setIcon(new Icon(VaadinIcon.HOME));
 
         homeMenu.addClickListener(buttonClickEvent -> {

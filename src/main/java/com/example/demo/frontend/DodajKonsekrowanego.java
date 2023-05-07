@@ -14,8 +14,9 @@ import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 
-@Route("Dodaj_Konsekrowanego")
+@Route("add_new")
 @RolesAllowed("User")
 public class DodajKonsekrowanego extends VerticalLayout {
 
@@ -24,7 +25,7 @@ public class DodajKonsekrowanego extends VerticalLayout {
 
 
 
-        var homeMenu = new Button("Menu Główne");
+        var homeMenu = new Button("Home");
         homeMenu.setIcon(new Icon(VaadinIcon.HOME));
 
         homeMenu.addClickListener(buttonClickEvent -> {
@@ -33,10 +34,10 @@ public class DodajKonsekrowanego extends VerticalLayout {
         });
 
         var ressources = new ImageClassResourcess();
-        TextField textFieldImie = new TextField("imie");
-        TextField textFieldNazwisko = new TextField("Nazwisko");
-        TextField textFielOaza = new TextField("Oaza");
-        DatePicker picker = new DatePicker("Podaj date urodzenia");
+        TextField textFieldImie = new TextField("name");
+        TextField textFieldNazwisko = new TextField("lastname");
+        TextField textFielOaza = new TextField("oasis");
+        DatePicker picker = new DatePicker("BirthDay");
         picker.setWeekNumbersVisible(true);
         Button buttonDodaj = new Button("Dodaj Konsekrowanego");
 
@@ -48,7 +49,7 @@ public class DodajKonsekrowanego extends VerticalLayout {
             konsekrowany.setOasis(textFielOaza.getValue());
             konsekrowany.setBirthDay(picker.getValue());
             repository.save(konsekrowany);
-            Notification notification = new Notification("Konsekrowany został dodany do bazy danych ",3000);
+            Notification notification = new Notification("new consacrated added successfully ",3000);
             notification.open();
 
 

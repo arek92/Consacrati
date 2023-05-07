@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-@Route("zaktualizuj dane")
+@Route("update")
 @RolesAllowed("PASTORE")
 public class AssettiClass extends Div {
 
@@ -34,7 +34,7 @@ public class AssettiClass extends Div {
     @Autowired
     public AssettiClass(Repo repo) {
 
-        var homeMenu = new Button("Menu Główne");
+        var homeMenu = new Button("Home");
         homeMenu.setIcon(new Icon(VaadinIcon.HOME));
 
         homeMenu.addClickListener(buttonClickEvent -> {
@@ -48,7 +48,7 @@ public class AssettiClass extends Div {
         Grid<Konsekrowany> grid = new Grid<>(Konsekrowany.class,false);
         grid.setAllRowsVisible(true);
        grid.setItems(konsekrowanyList);
-        Notification notification = new Notification("Aby zachowac zmiany odswiez strone",4000);
+        Notification notification = new Notification("after update please reload the page",4000);
         notification.open();
 
 

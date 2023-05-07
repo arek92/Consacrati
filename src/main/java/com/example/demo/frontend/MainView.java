@@ -12,11 +12,14 @@ import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.VaadinSession;
 import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Optional;
 import java.util.concurrent.Executors;
@@ -25,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 
 
 @Route(value = "")
-@PermitAll
+@RolesAllowed({"User","PASTORE"})
 public class MainView extends Div {
 
     public MainView() {
@@ -39,8 +42,14 @@ public class MainView extends Div {
         var ressources = new RisenImageClass();
 
 
-        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        var tabCurrentUser = new Tab(VaadinIcon.USER.create(), new Span("Zalogowany jako " + " " + " " + currentUser.getUsername()));
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User currentUser = new User(username, "", new ArrayList<>());
+        var tabCurrentUser = new Tab(VaadinIcon.USER.create(), new Span("logged  as " + " " + " " + currentUser.getUsername()));
+
+
+
+//        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        var tabCurrentUser = new Tab(VaadinIcon.USER.create(), new Span("logged  as " + " " + " " + currentUser.getUsername()));
 
 
         VaadinSession session = UI.getCurrent().getInternals().getSession();
@@ -71,27 +80,27 @@ public class MainView extends Div {
 
 
         // Set the icon on top
-        for (Tab tab : new Tab[]{dodajKonsekrowanego, znajdzInformacje, urodziny, aktualizujInformacje, buttonLogout, tabCurrentUser}) {
+        for (Tab tab : new Tab[]{dodajKonsekrowanego, znajdzInformacje, urodziny, aktualizujInformacje, buttonLogout}) {
             tab.addThemeVariants(TabVariant.LUMO_ICON_ON_TOP);
         }
 
         dodajKonsekrowanego.getElement().addEventListener("click", attachEvent ->
-                dodajKonsekrowanego.getUI().ifPresent(ui -> ui.navigate("Dodaj_Konsekrowanego")));
+                dodajKonsekrowanego.getUI().ifPresent(ui -> ui.navigate("add_new")));
 
         znajdzInformacje.getElement().addEventListener("click", attachEvent ->
-                znajdzInformacje.getUI().ifPresent(ui -> ui.navigate("Znajdz konsekrowanego")));
+                znajdzInformacje.getUI().ifPresent(ui -> ui.navigate("find")));
 
         urodziny.getElement().addEventListener("click", attachEvent ->
-                urodziny.getUI().ifPresent(ui -> ui.navigate("Czy ktos ma urodziny")));
+                urodziny.getUI().ifPresent(ui -> ui.navigate("Someone celebrates his birthday?")));
 
         aktualizujInformacje.getElement().addEventListener("click", attachEvent ->
-                aktualizujInformacje.getUI().ifPresent(ui -> ui.navigate("zaktualizuj dane")));
+                aktualizujInformacje.getUI().ifPresent(ui -> ui.navigate("update")));
 
 
         buttonLogout.getElement().addEventListener("click", attachEvent ->
                 buttonLogout.getUI().ifPresent(ui -> ui.navigate("login")));
 
-        Tabs tabs = new Tabs(dodajKonsekrowanego, znajdzInformacje, urodziny, aktualizujInformacje, tabCurrentUser, sessionDurationTab, buttonLogout);
+        Tabs tabs = new Tabs(dodajKonsekrowanego, znajdzInformacje, urodziny, aktualizujInformacje, tabCurrentUser,sessionDurationTab, buttonLogout);
 
 
         add(tabs, ressources);
