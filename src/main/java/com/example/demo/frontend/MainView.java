@@ -21,7 +21,7 @@ import java.util.Calendar;
 
 
 @Route(value = "")
-@RolesAllowed({"User","PASTORE"})
+@RolesAllowed({"User", "Pastore"})
 public class MainView extends Div {
 
     public MainView() {
@@ -50,20 +50,20 @@ public class MainView extends Div {
         long sessionDurationSeconds = sessionDurationMinutes * 60;
         long remainingSeconds = sessionDurationSeconds - elapsedSeconds;
 
-        long minutes = remainingSeconds / 60;
-        long seconds = remainingSeconds % 60;
-        String formated = String.format("%02d:%02d", minutes, seconds);
+            long minutes = remainingSeconds / 60;
+            long seconds = remainingSeconds % 60;
+            String formated = String.format("%02d:%02d", minutes, seconds);
 
-        Tab sessionDurationTab = new Tab(VaadinIcon.TIMER.create(), new Span("do konca sesji pozostało : " + formated));
+            Tab sessionDurationTab = new Tab(VaadinIcon.TIMER.create(), new Span("do konca sesji pozostało : " + formated));
 
-        if (remainingSeconds <= 0) {
-            // Session has expired
-            session.getSession().invalidate();
-            session.close();
+            if (remainingSeconds <= 0) {
+                // Session has expired
+                session.getSession().invalidate();
+                session.close();
 
-            getUI().ifPresent(ui -> ui.navigate("/logout"));
+                getUI().ifPresent(ui -> ui.navigate("/logout"));
 
-        }
+            }
 
 
         // Set the icon on top
