@@ -25,7 +25,7 @@ import java.util.Optional;
 
 
 @Route("update")
-@RolesAllowed("PASTORE")
+@RolesAllowed("Pastore")
 public class AssettiClass extends Div {
 
     private Optional<Grid.Column<Konsekrowany>> currentColumn = Optional.empty();
