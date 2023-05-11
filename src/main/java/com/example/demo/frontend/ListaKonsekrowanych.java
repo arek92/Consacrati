@@ -74,7 +74,7 @@ public class ListaKonsekrowanych extends Div {
                     searchTerm);
             boolean matchesEmail = matchesTerm(konsekrowany.getLastname(), searchTerm);
             boolean matchesProfession = matchesTerm(konsekrowany.getOasis(), searchTerm);
-            boolean matchesDate = matchesTerm(konsekrowany.getBirthDay().toString(), searchTerm);
+            boolean matchesDate = matchesTerm(String.valueOf(konsekrowany.getBirthDay()), searchTerm);
 
             return matchesFullName || matchesEmail || matchesProfession || matchesDate;
         });
