@@ -28,7 +28,7 @@ public class MainView extends Div {
 
 
         var dodajKonsekrowanego = new Tab(VaadinIcon.USER.create(), new Span("add"));
-        var znajdzInformacje = new Tab(VaadinIcon.SEARCH.create(), new Span("find"));
+        var znajdzInformacje = new Tab(VaadinIcon.SEARCH.create(),VaadinIcon.TRASH.create(), new Span("find/delete"));
         var urodziny = new Tab(VaadinIcon.CALENDAR_CLOCK.create(), new Span("birthday"));
         var aktualizujInformacje = new Tab(VaadinIcon.EDIT.create(), new Span("update"));
         var buttonLogout = new Tab(VaadinIcon.EXIT.create(), new Span("logout"));
@@ -50,20 +50,20 @@ public class MainView extends Div {
         long sessionDurationSeconds = sessionDurationMinutes * 60;
         long remainingSeconds = sessionDurationSeconds - elapsedSeconds;
 
-            long minutes = remainingSeconds / 60;
-            long seconds = remainingSeconds % 60;
-            String formated = String.format("%02d:%02d", minutes, seconds);
+        long minutes = remainingSeconds / 60;
+        long seconds = remainingSeconds % 60;
+        String formated = String.format("%02d:%02d", minutes, seconds);
 
-            Tab sessionDurationTab = new Tab(VaadinIcon.TIMER.create(), new Span("do konca sesji pozostało : " + formated));
+        Tab sessionDurationTab = new Tab(VaadinIcon.TIMER.create(), new Span("do konca sesji pozostało : " + formated));
 
-            if (remainingSeconds <= 0) {
-                // Session has expired
-                session.getSession().invalidate();
-                session.close();
+        if (remainingSeconds <= 0) {
+            // Session has expired
+            session.getSession().invalidate();
+            session.close();
 
-                getUI().ifPresent(ui -> ui.navigate("/logout"));
+            getUI().ifPresent(ui -> ui.navigate("/logout"));
 
-            }
+        }
 
 
         // Set the icon on top
@@ -96,6 +96,5 @@ public class MainView extends Div {
     }
 
 }
-
 
 

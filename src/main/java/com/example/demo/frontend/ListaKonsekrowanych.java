@@ -7,6 +7,7 @@ import com.vaadin.flow.component.grid.dataview.GridListDataView;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
@@ -35,9 +36,6 @@ public class ListaKonsekrowanych extends Div {
         });
 
 
-
-
-
         List<Konsekrowany> konsekrowanyList = repository.findAll();
         Grid<Konsekrowany> grid = new Grid<>();
 
@@ -45,6 +43,19 @@ public class ListaKonsekrowanych extends Div {
         grid.addColumn(Konsekrowany::getLastname).setHeader("Last name");
         grid.addColumn(Konsekrowany::getOasis).setHeader("Oasis");
         grid.addColumn(Konsekrowany::getBirthDay).setHeader("BirthDay");
+
+        Grid.Column<Konsekrowany> deleteColumn = grid.addComponentColumn(konsekrowany -> {
+            Button deleteButton = new Button("Delete", new Icon(VaadinIcon.TRASH));
+            deleteButton.addClickListener(event -> {
+                repository.delete(konsekrowany);
+                konsekrowanyList.remove(konsekrowany);
+                Notification notification = new Notification("Konsekrowany has been removed successfully",3000);
+                notification.open();
+                //dataView.refreshAll();
+            });
+            return deleteButton;
+        });
+        deleteColumn.setHeader("Actions");
 
         grid.setItems(konsekrowanyList);
         GridListDataView<Konsekrowany> dataView = grid.setItems(konsekrowanyList);
@@ -69,11 +80,11 @@ public class ListaKonsekrowanych extends Div {
         });
 
 
-        add(grid, findField,homeMenu);
+        add(grid, findField, homeMenu);
 
     }
 
-    private boolean matchesTerm(String value, String searchTerm) {
+        private boolean matchesTerm(String value, String searchTerm) {
         return value.toLowerCase().contains(searchTerm.toLowerCase());
     }
 }
