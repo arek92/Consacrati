@@ -18,8 +18,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 @RolesAllowed("User")
 public class DodajKonsekrowanego extends VerticalLayout {
 
+    private final TextField textFieldImie = new TextField("name");
+   private final TextField textFieldNazwisko = new TextField("lastname");
+   private final TextField textFielOaza = new TextField("oasis");
+   private final DatePicker picker = new DatePicker("BirthDay");
+
     @Autowired
     public DodajKonsekrowanego(Repo repository){
+
+
+        picker.setWeekNumbersVisible(true);
 
 
 
@@ -31,15 +39,8 @@ public class DodajKonsekrowanego extends VerticalLayout {
 
         });
 
-        var ressources = new ImageClassResourcess();
-        TextField textFieldImie = new TextField("name");
-        TextField textFieldNazwisko = new TextField("lastname");
-        TextField textFielOaza = new TextField("oasis");
-        DatePicker picker = new DatePicker("BirthDay");
-        picker.setWeekNumbersVisible(true);
+
         Button buttonDodaj = new Button("Dodaj Konsekrowanego");
-
-
         buttonDodaj.addClickListener(buttonClickEvent -> {
             Konsekrowany konsekrowany = new Konsekrowany();
             konsekrowany.setName(textFieldImie.getValue());
@@ -54,9 +55,8 @@ public class DodajKonsekrowanego extends VerticalLayout {
         });
 
 
-
-
-        add(textFieldImie,textFieldNazwisko,textFielOaza,picker,buttonDodaj,homeMenu,ressources);
+        ImageClassResourcess ressources = new ImageClassResourcess();
+        add(textFieldImie,textFieldNazwisko,textFielOaza,picker, buttonDodaj,homeMenu, ressources);
 
 
 
