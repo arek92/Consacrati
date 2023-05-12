@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -20,6 +21,7 @@ public class Konsekrowany {
     private Long id;
     String name;
     String lastname;
+    @Pattern(regexp = "\\D*",message = "Oasis cannot contain numbers")
     String oasis;
     LocalDate birthDay;
 

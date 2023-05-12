@@ -38,14 +38,6 @@ public class DodajKonsekrowanego extends VerticalLayout {
             homeMenu.getUI().ifPresent(ui -> ui.navigate(""));
         });
 
-//        textFieldImie.setPattern("\\D*");
-//        textFieldImie.setErrorMessage("Please enter a valid name name can not contain numbers");
-//
-//        textFieldNazwisko.setPattern("\\D*");
-//        textFieldNazwisko.setErrorMessage("Please enter a valid lastName lastname can not contain numbers");
-//
-//        textFielOaza.setPattern("\\D*");
-//        textFielOaza.setErrorMessage("Please enter a valid oasis name , oasis name can not contain numbers");
 
         binder.forField(textFieldImie)
                 .withValidator(name -> name.matches("\\D*"), "Please enter a valid name name can not contain numbers")
